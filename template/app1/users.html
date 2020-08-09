@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<center>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>List of all users</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/users">Algoscale Task</a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><span class="glyphicon glyphicon-star"></span> Welcome : {{request.user|title}} </a></li>
+      {% if not request.user.is_authenticated %}
+      <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      {% endif %}
+      {% if not request.user.is_authenticated %}
+      <li><a href="/accounts/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      {% endif %}  &nbsp &nbsp &nbsp
+      {% if request.user.is_authenticated %}
+      <li><a href="/accounts/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>
+
+{% if users %}
+<h1>List of all the Users</h1><hr>
+  {% for i in users %}
+    <h3>Name: {{i.username}}&nbsp;&nbsp;&nbsp;&nbsp;<a href="/user_delete/{{i.id}}" class="btn btn-danger">Delete user</a></h3><hr>
+  {% endfor %}
+{% else %}
+  <h1>No users found</h1>
+{% endif %}
+  </body>
+</html>
